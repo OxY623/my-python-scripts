@@ -1,0 +1,40 @@
+# Byte-code and optimization files
+__pycache__/
+*.py[cod]
+*.pyd
+*.pyo
+*.egg-info/
+.Python
+build/
+dist/
+
+# Virtual environment
+venv/
+env/
+.venv/
+lib/python*/site-packages/
+
+# Editor/IDE-specific files
+# VS Code
+.vscode/
+# PyCharm/IntelliJ
+.idea/
+
+# OS and specific tool files
+*.swp
+*.bak
+*.tmp
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Environment variables
+.env
+.flaskenv
+
+# Miscellaneous
+.coverage
+.cache/
+nosetests.xml
+coverage.xml
+htmlcov/
+venv
