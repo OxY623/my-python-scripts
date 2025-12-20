@@ -39,12 +39,12 @@ def mac_changer(interface, new_mac):
 
 def  get_current_mac_address(interface):
         if interface:
-            ifconfig_result = subprocess.check_output(["ifconfig", interface, "down"])
-            mac_addresss_serch_result = re.search(r'\w\w:\w\w:\w\w:\w\w:\w\w:\w\w', ifconfig_result)
-            if mac_addresss_serch_result:
-                mac_adress_ether = mac_addresss_serch_result.group(0) 
-                print(f"Your MAC ADRESS is {str(mac_adress_ether)}")
-                return mac_adress_ether
+            ifconfig_result = subprocess.check_output(["ifconfig", interface])
+            mac_address_serch_result = re.search(r'\w\w:\w\w:\w\w:\w\w:\w\w:\w\w', ifconfig_result)
+            if mac_address_serch_result:
+                mac_address_ether = mac_address_serch_result.group(0) 
+                print(f"Your MAC ADRESS is {str(mac_address_ether)}")
+                return mac_address_ether
             else:
                 print("Could not read MAC ADDRESS")
                 
