@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import argparse
 import subprocess
-
+import re
+import platform
 
 def get_arguments():
     parser = argparse.ArgumentParser(
@@ -36,9 +37,53 @@ def mac_changer(interface, new_mac):
     except subprocess.CalledProcessError as e:
         print(f"[!] Ошибка: {e}")
 
+def  get_current_mac_address(interface):
+        if interface:
+            ifconfig_result = subprocess.check_output(["ifconfig", interface, "down"])
+            mac_addresss_serch_result = re.search(r'\w\w:\w\w:\w\w:\w\w:\w\w:\w\w', ifconfig_result)
+            if mac_addresss_serch_result:
+                mac_adress_ether = mac_addresss_serch_result.group(0) 
+                print(f"Your MAC ADRESS is {str(mac_adress_ether)}")
+                return mac_adress_ether
+            else:
+                print("Could not read MAC ADDRESS")
+                
+        else:
+            print("Invalid arguments")
+
+def get_cur_OS():
+    os_name = platform.system()
+    return os_name
+
+         
+
+
 
 if __name__ == "__main__":
     args = get_arguments()
-    # mac_changer(args.interface, args.new_mac)
-    ifconfig_result = subprocess.check_output(["ifconfig", args.interface, "down"])
-    print(ifconfig_result)
+    print("Start")
+    print('Work only Linux OS')
+    os_name = get_cur_OS()
+    if os_name != 'Linux':
+        print("Curent OS isn't Linux OS")
+        exit(-1)
+    print(f"You working {os_name}. Good...")
+
+    cur_mac_id = get_current_mac_address(args.interface)
+    mac_changer(args.interface, args.new_mac)
+    new_mac_id = get_current_mac_address(args.interface)
+    if cur_mac_id != new_mac_id:
+       if new_mac_id == args.new_mac:
+           print(f"[+] MAC ADDRESS was sucessfully chandeg to {new_mac_id}")
+       else:
+           print("[-] MAC ADRESS didn't get changed")
+    else:
+        print("Something went wrong")
+        if new_mac_id == args.new_mac:
+           print(f"[+] MAC ADDRESS was sucessfully chandeg to {new_mac_id}")
+        else:
+           print("[-] MAC ADRESS didn't get changed")
+       
+
+    
+    
