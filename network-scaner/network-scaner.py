@@ -1,5 +1,20 @@
 #!/usr/bin/env python3
 import scapy.all as scapy
+import argparse
+
+def get_arguments():
+    parser = argparse.ArgumentParser(
+        description="The Network Scaner", prog="The network scaner"
+    )
+    parser.add_argument(
+        "-t",
+        "--target",
+        dest="target",
+        help="Target IP / IP range",
+        required=True,
+    )
+
+    return parser.parse_args()
 
 def scan(ip):
     arp_request = scapy.ARP(pdst=ip)
@@ -35,5 +50,6 @@ def print_result(data):
 
 
 if __name__ == "__main__":
-    result = scan("192.168.192.1/24")
+    args = get_arguments()
+    result = scan(args.target)
     print_result(result)
