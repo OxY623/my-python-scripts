@@ -1,1 +1,1 @@
-argparse
+scapy==2.7.0
